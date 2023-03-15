@@ -1,9 +1,11 @@
 import { useState } from "react";
 import FormInput from "../form-input/form-input.component.jsx";
+import Button from "../button/button.component";
+import "./sign-up-form.styles.scss";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
-} from "../../utils/firebase/firebase.utils.jsx";
+} from "../../utils/firebase/firebase.utils";
 const defaultFormFields = {
   displayName: "",
   email: "",
@@ -22,6 +24,7 @@ const SignUpForm = ({ user }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (password !== confirmPassword) {
       alert("you have to have the same password");
       return;
@@ -48,8 +51,9 @@ const SignUpForm = ({ user }) => {
     setFormFields({ ...formFields, [name]: value });
   };
   return (
-    <div>
-      <h1>Sign up with </h1>
+    <div className="sign-up-container">
+      <h2>Don't have an account?</h2>
+      <span>Sign up with your email and password </span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Display Name"
@@ -95,7 +99,7 @@ const SignUpForm = ({ user }) => {
           //     setFormFields(event.target.value);
           //   }}
         />
-        <button type="submit">Sign Up</button>
+        <Button type="submit">Sign Up</Button>
       </form>
     </div>
   );
