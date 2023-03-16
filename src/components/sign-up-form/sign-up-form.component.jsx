@@ -1,11 +1,13 @@
 import { useState } from "react";
 import FormInput from "../form-input/form-input.component.jsx";
 import Button from "../button/button.component";
+
 import "./sign-up-form.styles.scss";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
+
 const defaultFormFields = {
   displayName: "",
   email: "",
@@ -17,6 +19,7 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
+  console.log("hit");
   //   console.log(formFields);
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -34,7 +37,9 @@ const SignUpForm = () => {
           email,
           password
         );
+
         console.log(user);
+
         await createUserDocumentFromAuth(user, { displayName });
         resetFormFields();
       } catch (error) {
