@@ -5,8 +5,6 @@ import "./sign-in-form.styles.scss";
 
 import {
   signInWithGooglePopup,
-  createAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
 
@@ -39,7 +37,7 @@ const SignInForm = () => {
         password
       );
 
-      // console.log(user);
+      console.log(user);
       resetFormFields();
     } catch (error) {
       switch (error.code) {
