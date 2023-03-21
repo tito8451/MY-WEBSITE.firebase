@@ -1,13 +1,13 @@
 import DirectoryItem from "../directory-item/directory-item.component";
-import "./directory.comonent.scss";
+import { DirectoryContainer } from "./directory.comonent.jsx";
 
 const Directory = ({ categories }) => {
   return (
-    <div className="directory-container">
+    <DirectoryContainer>
       {categories.map((category) => (
         <DirectoryItem key={category.id} category={category} />
       ))}
-    </div>
+    </DirectoryContainer>
   );
 };
 export default Directory;
