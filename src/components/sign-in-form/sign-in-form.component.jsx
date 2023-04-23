@@ -26,7 +26,7 @@ const SignInForm = () => {
 
   const signInWithGoogle = async () => {
     await signInWithGooglePopup();
-    // console.log({ user });
+    console.log({ formFields });
     // console.log(userDocRef);
   };
 
