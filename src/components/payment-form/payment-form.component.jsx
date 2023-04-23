@@ -15,18 +15,16 @@ const PaymentForm = () => {
       return;
     }
 
-    const response = await fetch(
-      "/.netlify/functions/create-payment-intent.js",
-      {
-        method: "post",
-        headers: {
-          "Content-Type": "applifation/json",
-        },
-        body: JSON.stringify({ amount: 10000 }),
-      }
-    ).then((res) => res.json());
-
-    console.log(response);
+    const response = await fetch("/.netlify/functions/create-payment-intent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ amount: 10000 }),
+    }).then((res) => {
+      // return res.json();
+      console.log(response);
+    });
   };
   return (
     <PaymentFormContainer>
@@ -38,5 +36,4 @@ const PaymentForm = () => {
     </PaymentFormContainer>
   );
 };
-
 export default PaymentForm;
