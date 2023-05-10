@@ -1,5 +1,4 @@
 {
-  "name": "Thomas",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -20,24 +19,36 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
+    "redux-saga": "^1.2.3",
     "sass": "^1.59.2",
     "scss": "^0.2.4",
     "stripe": "^12.2.0",
     "styled-components": "^5.3.9",
-    "typescript": "^5.0.4",
+    "vite": "^4.3.1",
+    "vite-plugin-env-compatible": "^1.1.1",
+    "vite-plugin-svgr": "^2.4.0",
     "web-vitals": "^2.1.0",
     "yarn": "^1.22.19"
   },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^2.0.1",
+    "prettier": "^2.8.4"
+  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ]
+  },
+  "compilerOptions": {
+    "types": [
+      "vite/client"
     ]
   },
   "browserslist": {
@@ -52,10 +63,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "prettier": "^2.8.4"
-  },
-  "main": "index.js",
+  "main": "index.jsx",
   "repository": "yes",
   "author": "yes",
   "license": "MIT"

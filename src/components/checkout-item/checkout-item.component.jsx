@@ -4,8 +4,8 @@ import {
   addItemToCart,
   clearItemFromCart,
   removeItemFromCart,
-} from "../../store/cart/cart.action";
-import { selectCartItems } from "../../store/cart/cart.selector";
+} from "/src/store/cart/cart.action.jsx";
+import { selectCartItems } from "/src/store/cart/cart.selector.jsx";
 
 import {
   CheckoutItemContainer,
@@ -20,8 +20,8 @@ import {
 const CheckoutItem = ({ cartItem }) => {
   const { name, imageUrl, price, quantity } = cartItem;
 
-  const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
+  const dispatch = useDispatch();
 
   const clearItemHandler = () =>
     dispatch(clearItemFromCart(cartItems, cartItem));

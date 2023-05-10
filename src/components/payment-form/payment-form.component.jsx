@@ -1,37 +1,80 @@
-import React from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
-import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
+import {
+  PaymentFormContainer,
+  FormContainer,
+  PaymentButton,
+} from "./payment-form.styles.jsx";
+import { selectCurrentUser } from "/src/store/user/user.selector.jsx";
+import { selectCartTotal } from "/src/store/cart/cart.selector.jsx";
 
-import { PaymentFormContainer, FormContainer } from "./payment-form.styles";
+import { BUTTON_TYPE_CLASSES } from "/src/components/button/button.component.jsx";
 
 const PaymentForm = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const amount = useSelector(selectCartTotal);
+  const currentUser = useSelector(selectCurrentUser);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
   const paymentHandler = async (e) => {
     e.preventDefault();
     if (!stripe || !elements) {
       return;
     }
+    setIsProcessingPayment(true);
 
     const response = await fetch("/.netlify/functions/create-payment-intent", {
-      method: "POST",
+      method: "post",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ amount: 10000 }),
+
+      body: JSON.stringify({ amount: amount * 100, currency: "eur" }),
     }).then((res) => {
-      // return res.json();
-      console.log(response);
+      // console.log(status);
+      console.log(import.meta.env.VITE_STRIPE_SECRET_KEY);
+      console.log(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+      return res.json();
     });
+    // console.log(response);
+    // console.log(JSON);
+    const clientSecret = response.paymentIntent.client_secret;
+
+    const paymentResult = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          name: currentUser ? currentUser.displayName : "Guest",
+          email: "thomas86.cornu@gmail.com",
+        },
+      },
+    });
+    setIsProcessingPayment(false);
+
+    if (paymentResult.error) {
+      alert(paymentResult.error.message);
+    } else {
+      if (paymentResult.paymentIntent.status === "succeeded") {
+        alert("Payment successful");
+      }
+    }
   };
+
   return (
     <PaymentFormContainer>
       <FormContainer onSubmit={paymentHandler}>
         <h2>Credit Cart Payment: </h2>
         <CardElement />
-        <Button buttonType={BUTTON_TYPE_CLASSES.inverted}> Pay Now </Button>
+        <PaymentButton
+          buttonType={BUTTON_TYPE_CLASSES.inverted}
+          isLoading={isProcessingPayment}
+          disabled={!stripe}
+        >
+          Pay Now
+        </PaymentButton>
       </FormContainer>
     </PaymentFormContainer>
   );

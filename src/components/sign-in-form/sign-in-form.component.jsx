@@ -1,14 +1,15 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import FormInput from "../form-input/form-input.component.jsx";
-import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component.jsx";
 
 import { ButtonsContainer, SigninContainer } from "./sign-in-form.styles.jsx";
 
 import {
-  signInWithGooglePopup,
-  signInAuthUserWithEmailAndPassword,
-} from "../../utils/firebase/firebase.utils";
+  emailSignInStart,
+  googleSignInStart,
+} from "../../store/user/user.action.jsx";
 
 const defaultFormFields = {
   email: "",
@@ -16,6 +17,7 @@ const defaultFormFields = {
 };
 
 const SignInForm = () => {
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
@@ -25,8 +27,7 @@ const SignInForm = () => {
   };
 
   const signInWithGoogle = async () => {
-    await signInWithGooglePopup();
-    console.log({ formFields });
+    dispatch(googleSignInStart());
     // console.log(userDocRef);
   };
 
@@ -34,24 +35,23 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      await signInAuthUserWithEmailAndPassword(email, password);
+      dispatch(emailSignInStart(email, password));
       resetFormFields();
     } catch (error) {
-      switch (error.code) {
-        case "auth/wrong-password":
-          alert("incorrect password for email");
-          break;
-        case "auth/user-not-found":
-          alert("no user associated with this email");
-          break;
-        default:
-          console.log(error);
-      }
+      console.log("user sign in failed", error);
+      // switch (error.code) {
+      //   case "auth/wrong-password":
+      //     alert("incorrect password for email");
+      //     break;
+      //   case "auth/user-not-found":
+      //     alert("no user associated with this email");
+      //     break;
+      //   default:
+      //     console.log(error);
+      // }
     }
   };
-  //   const handleChange = (event) => {
-  //     setFormFields(event.target.value);
-  //   };
+
   // ! auth/popup-closed-by-user
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -76,7 +76,7 @@ const SignInForm = () => {
 
         <FormInput
           label="Password"
-          type="text"
+          type="password"
           value={password}
           required
           name="password"

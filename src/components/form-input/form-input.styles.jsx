@@ -28,6 +28,7 @@ export const Input = styled.input`
   padding: 10px 10px 10px 5px;
   display: block;
   border: none;
+  width: 100%;
   border-radius: 0;
   border-bottom: 1px solid ${subColor};
   margin: 25px 0;

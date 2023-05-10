@@ -1,13 +1,12 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import FormInput from "../form-input/form-input.component.jsx";
-import Button from "../button/button.component";
+import Button from "../button/button.component.jsx";
 
 import { SignupContainer } from "./sign-up-form.styles.jsx";
-import {
-  createAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
-} from "../../utils/firebase/firebase.utils";
+
+import { signUpStart } from "../../store/user/user.action.jsx";
 
 const defaultFormFields = {
   displayName: "",
@@ -19,6 +18,7 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
+  const dispatch = useDispatch();
 
   // console.log("hit");
   //   console.log(formFields);
@@ -26,37 +26,24 @@ const SignUpForm = () => {
     setFormFields(defaultFormFields);
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
       alert("you have to have the same password");
       return;
-    } else {
-      try {
-        const { user } = await createAuthUserWithEmailAndPassword(
-          email,
-          password
-        );
-
-        console.log(user);
-
-        await createUserDocumentFromAuth(user, { displayName });
-        resetFormFields();
-      } catch (error) {
-        switch (error.code) {
-          case "auth/email-already-in-use":
-            alert("This email have an account");
-            break;
-          default:
-            console.log(error);
-        }
+    }
+    try {
+      dispatch(signUpStart(email, password, displayName));
+      resetFormFields();
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        alert("This email have an account, Cannot create User");
+      } else {
+        console.log("user creation encountered an error", error);
       }
     }
   };
-  //   const handleChange = (event) => {
-  //     setFormFields(event.target.value);
-  //   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -98,9 +85,7 @@ const SignUpForm = () => {
           required
           name="password"
           autoComplete="none"
-          onChange={handleChange} //   onChange={(event) => {
-          //     setFormFields(event.target.value);
-          //   }}
+          onChange={handleChange}
         />
         <FormInput
           label="Confirm Password"
@@ -108,9 +93,7 @@ const SignUpForm = () => {
           required
           name="confirmPassword"
           value={confirmPassword}
-          onChange={handleChange} //   onChange={(event) => {
-          //     setFormFields(event.target.value);
-          //   }}
+          onChange={handleChange}
         />
         <Button type="submit">Sign Up</Button>
       </form>
