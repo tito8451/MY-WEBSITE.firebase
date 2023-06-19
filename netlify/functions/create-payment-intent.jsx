@@ -1,7 +1,5 @@
 require("dotenv").config();
-const stripe = require("stripe")(
-  `${import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY}`
-);
+const stripe = require("stripe")(`${import.meta.env.VITE_STRIPE_SECRET_KEY}`);
 
 exports.handler = async (event) => {
   console.log(event.body);

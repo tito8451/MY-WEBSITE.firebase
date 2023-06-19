@@ -1,5 +1,5 @@
 import { CATEGORIES_ACTION_TYPES } from "./category.types.jsx";
-import { createAction } from "../../utils/reducer/reducer.utils.jsx";
+import { createAction } from "/src/utils/reducer/reducer.utils.jsx";
 
 export const fetchCategoriesStart = () =>
   createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);

@@ -39,7 +39,7 @@ const PaymentForm = () => {
       console.log(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
       return res.json();
     });
-    // console.log(response);
+    console.log(response);
     // console.log(JSON);
     const clientSecret = response.paymentIntent.client_secret;
 
