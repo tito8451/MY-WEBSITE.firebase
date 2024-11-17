@@ -5,6 +5,6 @@
 [dev]
   command = 'yarn run start'   # Commande pour démarrer votre serveur de développement
   port = 5173                   # Port pour le serveur de développement
-  targetPort = 3000
+
 
  
