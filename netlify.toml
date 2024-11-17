@@ -1,8 +1,9 @@
 [build]
-  command = "yarn run build"  # Commande pour construire votre projet
-  publish = "build"            # Répertoire à publier
+  command = 'yarn run build' # Commande pour construire votre projet
+  publish = 'build'            # Répertoire à publier
 
 [dev]
-  command = "yarn run start"   # Commande pour démarrer votre serveur de développement
+  command = 'yarn run start'   # Commande pour démarrer votre serveur de développement
   port = 5173                   # Port pour le serveur de développement
-  targetPort = 3000             # Port que Netlify Dev surveillera pour votre application front-end
+  targetPort = 5173
+ 

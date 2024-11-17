@@ -50,6 +50,7 @@
   },
   "scripts": {
     "start": "vite",
+    "dev": "next dev -p 3001",
     "build": "vite build",
     "preview": "vite preview"
   },
