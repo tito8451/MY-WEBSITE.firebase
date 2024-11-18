@@ -1,26 +1,23 @@
-require("dotenv").config();
-const stripe = require("stripe")(`${import.meta.env.VITE_STRIPE_SECRET_KEY}`);
+const stripe = require("stripe")(process.env.VITE_STRIPE_SECRET_KEY);
 
 exports.handler = async (event) => {
-  console.log(event.body);
   try {
     const { amount } = JSON.parse(event.body);
-
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency: "eur",
       payment_method_types: ["card"],
     });
+    
     return {
       statusCode: 200,
-      body: JSON.stringify({ paymentIntent }),
+      body: JSON.stringify({ success: true, clientSecret: paymentIntent.client_secret }),
     };
   } catch (error) {
-    console.log("je cherche l'erreur");
-    console.log({ error });
+    console.error("Error creating payment intent:", error);
     return {
-      status: 400,
-      body: JSON.stringify({ error }),
+      statusCode: 400,
+      body: JSON.stringify({ error: error.message }),
     };
   }
 };

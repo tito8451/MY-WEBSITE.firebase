@@ -4,8 +4,8 @@ import { useDispatch } from "react-redux";
 
 //? import de mes routes
 
-import Home from "/src/routes/home/Home.component.jsx";
-import Navigation from "/src/routes/navigation/navigation.component.jsx"; // "/src/routes/navigation/navigation.component.jsx";
+import Home from "/src/routes/home/home.component.jsx";
+import Navigation from "/src/routes/navigation/navigation.component.jsx";
 import Shop from "/src/routes/shop/shop.component.jsx";
 import Authentification from "/src/routes/authentification/authentification.component.jsx";
 import Checkout from "/src/routes/checkout/checkout.component.jsx";

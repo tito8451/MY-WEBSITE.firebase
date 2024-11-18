@@ -19,7 +19,10 @@ const PaymentForm = () => {
   const currentUser = useSelector(selectCurrentUser);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
-  const paymentHandler = async (e) => {
+
+  return (
+    <PaymentFormContainer>
+      <FormContainer onSubmit={(async (e) => {
     e.preventDefault();
     if (!stripe || !elements) {
       return;
@@ -27,28 +30,29 @@ const PaymentForm = () => {
     setIsProcessingPayment(true);
 
     const response = await fetch("/.netlify/functions/create-payment-intent", {
+      
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
-
+     
       body: JSON.stringify({ amount: amount * 100, currency: "eur" }),
     }).then((res) => {
-      // console.log(status);
-      console.log(import.meta.env.VITE_STRIPE_SECRET_KEY);
-      console.log(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+      console.log(res);
       return res.json();
     });
     console.log(response);
     // console.log(JSON);
-    const clientSecret = response.paymentIntent.client_secret;
-
+    const {clientSecret} = await response.paymentIntentResponse.json();
+  // console.log(status);
+      // console.log(import.meta.env.VITE_STRIPE_SECRET_KEY);
+      // console.log(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
     const paymentResult = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),
         billing_details: {
           name: currentUser ? currentUser.displayName : "Guest",
-          email: "thomas86.cornu@gmail.com",
+          email: currentUser ? currentUser.email :"thomas86.cornu@gmail.com",
         },
       },
     });
@@ -61,11 +65,7 @@ const PaymentForm = () => {
         alert("Payment successful");
       }
     }
-  };
-
-  return (
-    <PaymentFormContainer>
-      <FormContainer onSubmit={paymentHandler}>
+  })}>
         <h2>Credit Cart Payment: </h2>
         <CardElement />
         <PaymentButton

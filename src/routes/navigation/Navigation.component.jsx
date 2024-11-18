@@ -19,12 +19,14 @@ import {
 import { signOutStart } from "/src/store/user/user.action.jsx";
 
 const Navigation = () => {
+    // console.log("je me balade dans la navigation");
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
 
   const signOutUser = () => dispatch(signOutStart());
-  //   console.log(currentUser);
+    // console.log(currentUser);
+    // console.log("je me balade dans la navigation");
 
   return (
     <Fragment>
