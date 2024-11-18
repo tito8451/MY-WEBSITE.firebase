@@ -13,7 +13,7 @@ import { stripePromise } from "/src/utils/stripe/stripe.utils.jsx";
 
 import { persistor, store } from "/src/store/store";
 
-// import { elements } from "../src/components/payment-form/payment-form.component.jsx";
+// import { Elements as StripeElements } from  "/src/components/payment-form/payment-form.component.jsx";
 import "./index.scss";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
