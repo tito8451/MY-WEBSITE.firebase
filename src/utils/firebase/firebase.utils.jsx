@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-// import { config } from 'dotenv';
+
 import { initializeApp } from "firebase/app";
 
 import {
@@ -22,7 +22,7 @@ import {
   query,
   getDocs,
 } from "firebase/firestore";
-// config();
+
 // const firebaseConfig = {
 //   apiKey: "AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk",
 //   authDomain: "crwn-clothing-db-98d4d.firebaseapp.com",
@@ -39,9 +39,18 @@ const firebaseConfig = {
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
-
+console.log("Firebase API Key:", import.meta.env.VITE_FIREBASE_API_KEY);
+console.log("Firebase API Key:", import.meta.env.VITE_FIREBASE_AUTH_DOMAIN);
 
 const firebaseApp = initializeApp(firebaseConfig);
+// Import the functions you need from the SDKs you need
+// import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+
+
+// Initialize Firebase
 
 const googleProvider = new GoogleAuthProvider();
 

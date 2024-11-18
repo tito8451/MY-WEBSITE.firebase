@@ -6,5 +6,10 @@
   command = 'yarn run start'   # Commande pour démarrer votre serveur de développement
   port = 5173                   # Port pour le serveur de développement
 
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = true
 
  
