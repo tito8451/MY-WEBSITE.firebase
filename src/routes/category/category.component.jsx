@@ -2,15 +2,15 @@ import { useState, useEffect, Fragment } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import ProductCard from "/src/components/product-card/product-card.component.jsx";
-import Spinner from "/src/components/spinner/spinner.component.jsx";
+import ProductCard from "../../components/product-card/product-card.component.jsx";
+import Spinner from "../../components/spinner/spinner.component.jsx";
 
 import {
   selectCategoriesIsLoading,
   selectCategoriesMap,
-} from "/src/store/categories/category.selector.jsx";
+} from "../../store/categories/category.selector.jsx";
 
-import { CategoryContainer, Title } from "./category.styles.jsx";
+import { CategoryContainer, Title } from "../../routes/category/category.styles.jsx";
 
 const Category = () => {
   const { category } = useParams();

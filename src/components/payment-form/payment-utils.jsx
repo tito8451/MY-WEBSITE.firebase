@@ -3,13 +3,14 @@ import { CardElement } from "@stripe/react-stripe-js";
 
 export const processPayment = async (stripe, elements, amount, currentUser) => {
   try {
-    const response = await fetch("/.netlify/functions/create-payment-intent", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ amount: amount * 100 }),
-    });
+    const response = await fetch('/.netlify/functions/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ amount }), // Montant en cents
+      });
+      
 
     if (!response.ok) {
       throw new Error('Failed to create payment intent');

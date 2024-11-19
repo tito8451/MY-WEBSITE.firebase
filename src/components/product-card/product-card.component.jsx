@@ -1,16 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectCartItems } from "/src/store/cart/cart.selector.jsx";
-import { addItemToCart } from "/src/store/cart/cart.action.jsx";
+import { selectCartItems } from "../../store/cart/cart.selector.jsx";
+import { addItemToCart } from "../../store/cart/cart.action.jsx";
 
 import {
   ProductCartContainer,
   Name,
   Price,
   Footer,
-} from "./product-card.styles.jsx";
+} from "../../components/product-card/product-card.styles.jsx";
 
-import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component.jsx";
+import Button, { BUTTON_TYPE_CLASSES } from "../../components/button/button.component.jsx";
 
 const ProductCard = ({ product }) => {
   const { name, price, imageUrl } = product;

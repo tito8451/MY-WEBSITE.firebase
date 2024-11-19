@@ -1,23 +1,28 @@
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event) => {
-  try {
+  if (event.httpMethod === 'POST') {
     const { amount } = JSON.parse(event.body);
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount,
-      currency: "eur",
-      payment_method_types: ["card"],
-    });
-    
+    try {
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount,
+        currency: 'usd',
+      });
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ clientSecret: paymentIntent.client_secret }),
+      };
+    } catch (error) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: error.message }),
+      };
+    }
+  } else {
     return {
-      statusCode: 200,
-      body: JSON.stringify({ clientSecret: paymentIntent.client_secret }),
-    };
-  } catch (error) {
-    console.error("Error creating payment intent:", error);
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: error.message }),
+      statusCode: 405,
+      body: JSON.stringify({ error: 'Method not allowed' }),
     };
   }
 };
+

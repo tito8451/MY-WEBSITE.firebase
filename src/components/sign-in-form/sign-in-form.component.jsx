@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import FormInput from "../form-input/form-input.component.jsx";
-import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component.jsx";
+import FormInput from "../../components/form-input/form-input.component.jsx";
+import Button, { BUTTON_TYPE_CLASSES } from "../../components/button/button.component.jsx";
 
-import { ButtonsContainer, SigninContainer } from "./sign-in-form.styles.jsx";
+import { ButtonsContainer, SigninContainer } from "../../components/sign-in-form/sign-in-form.styles.jsx";
 
 import {
   emailSignInStart,

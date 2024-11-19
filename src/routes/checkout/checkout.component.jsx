@@ -1,17 +1,17 @@
 import { useSelector } from "react-redux";
-import PaymentForm from "/src/components/payment-form/payment-form.component.jsx";
-import CheckoutItem from "/src/components/checkout-item/checkout-item.component.jsx";
+import PaymentForm from "../../components/payment-form/payment-form.component.jsx";
+import CheckoutItem from "../../components/checkout-item/checkout-item.component.jsx";
 
 import {
   CheckoutContainer,
   CheckoutHeader,
   HeaderBlock,
   Total,
-} from "./checkout.styles.jsx";
+} from "../../routes/checkout/checkout.styles.jsx";
 import {
   selectCartItems,
   selectCartTotal,
-} from "/src/store/cart/cart.selector.jsx";
+} from "../../store/cart/cart.selector.jsx";
 
 const Checkout = () => {
   const cartItems = useSelector(selectCartItems);

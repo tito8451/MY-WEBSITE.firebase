@@ -2,21 +2,21 @@ import { Outlet } from "react-router-dom";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import CartIcon from "/src/components/cart-icon/cart-icon.component.jsx";
-import CartDropdown from "/src/components/cart-dropdown/cart-dropdown.component.jsx";
+import CartIcon from "../../components/cart-icon/cart-icon.component.jsx";
+import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component.jsx";
 
-import { selectCurrentUser } from "/src/store/user/user.selector.jsx";
-import { selectIsCartOpen } from "/src/store/cart/cart.selector.jsx";
+import { selectCurrentUser } from "../../store/user/user.selector.jsx";
+import { selectIsCartOpen } from "../../store/cart/cart.selector.jsx";
 
-import { ReactComponent as CrwnLogo } from "/src/assets/crown.svg";
+import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 
 import {
   NavigationContainer,
   NavLinks,
   NavLink,
   LogoContainer,
-} from "./navigation.styles.jsx";
-import { signOutStart } from "/src/store/user/user.action.jsx";
+} from "../../routes/navigation/navigation.styles.jsx";
+import { signOutStart } from "../../store/user/user.action.jsx";
 
 const Navigation = () => {
     // console.log("je me balade dans la navigation");

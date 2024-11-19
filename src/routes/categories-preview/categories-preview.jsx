@@ -1,12 +1,12 @@
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
 
-import CategoryPreview from "/src/components/category-preview/category-preview.component.jsx";
+import CategoryPreview from "../../components/category-preview/category-preview.component.jsx";
 import {
   selectCategoriesIsLoading,
   selectCategoriesMap,
-} from "/src/store/categories/category.selector.jsx";
-import Spinner from "/src/components/spinner/spinner.component.jsx";
+} from "../../store/categories/category.selector.jsx";
+import Spinner from "../../components/spinner/spinner.component.jsx";
 
 const CategoriesPreview = () => {
   const categoriesMap = useSelector(selectCategoriesMap);

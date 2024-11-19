@@ -2,17 +2,17 @@ import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import CategoriesPreview from "/src/routes/categories-preview/categories-preview.jsx";
-import Category from "/src/routes/category/category.component.jsx";
+import CategoriesPreview from "../../routes/categories-preview/categories-preview.jsx";
+import Category from "../../routes/category/category.component.jsx";
 
-import { fetchCategoriesStart } from "/src/store/categories/category.action.jsx";
+import { fetchCategoriesStart } from "../../store/categories/category.action.jsx";
 
 const Shop = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCategoriesStart());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Routes>
