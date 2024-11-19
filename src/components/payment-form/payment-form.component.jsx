@@ -24,7 +24,7 @@ const PaymentForm = () => {
     setIsProcessingPayment(true);
 
     // Changez l'URL pour pointer vers votre fonction Netlify 
-    const response = await fetch('https://website-firebase.netlify.app/.netlify/functions/create-payment-intent', { // URL correcte
+    const response = await fetch('https://website-firebase.netlify.app/.netlify/functions/payment/create-payment-intent', { // URL correcte
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
