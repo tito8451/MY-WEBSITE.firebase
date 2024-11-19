@@ -11,7 +11,7 @@ export const BaseButton = styled.button`
   background-color: black;
   color: white;
   text-transform: uppercase;
-  font-family: "Montserrat";
+  font-family: "Open Sans Condensed";
   font-weight: bolder;
   border: none;
   cursor: pointer;
@@ -26,7 +26,7 @@ export const BaseButton = styled.button`
   }
 `;
 
-export const GoogleSigninButton = styled(BaseButton)`
+export const GoogleSignInButton = styled(BaseButton)`
   background-color: #4285f4;
   color: white;
 
@@ -47,6 +47,7 @@ export const InvertedButton = styled(BaseButton)`
     border: none;
   }
 `;
+
 export const LoadingSpinner = styled.div`
   display: inline-block;
   width: 30px;

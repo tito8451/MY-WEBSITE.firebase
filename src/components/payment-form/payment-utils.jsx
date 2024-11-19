@@ -1,44 +1,26 @@
-// src/components/payment-form/payment-utils.js
-import { CardElement } from "@stripe/react-stripe-js";
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+const stripe = require('stripe')(functions.config().stripe.key); // Utiliser la clé configurée
 
-export const processPayment = async (stripe, elements, amount, currentUser) => {
+admin.initializeApp();
+
+exports.createPaymentIntent = functions.https.onRequest(async (req, res) => {
+  if (req.method !== 'POST') {
+    return res.status(405).send({ error: 'Method not allowed' });
+  }
+
   try {
-    const response = await fetch('/.netlify/functions/create-payment-intent', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ amount }), // Montant en cents
-      });
-      
+    const { amount } = req.body;
 
-    if (!response.ok) {
-      throw new Error('Failed to create payment intent');
-    }
-
-    const { clientSecret } = await response.json();
-
-    const paymentResult = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: elements.getElement(CardElement),
-        billing_details: {
-          name: currentUser ? currentUser.displayName : "Guest",
-          email: currentUser ? currentUser.email : "guest@example.com",
-        },
-      },
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount,
+      currency: 'usd',
+      payment_method_types: ['card'],
     });
 
-    if (paymentResult.error) {
-      throw new Error(paymentResult.error.message);
-    }
-
-    if (paymentResult.paymentIntent.status === "succeeded") {
-      return { success: true };
-    } else {
-      throw new Error("Payment failed");
-    }
+    res.status(200).send({ paymentIntent });
   } catch (error) {
-    console.error("Payment error:", error);
-    return { error: error.message };
+    console.error(error);
+    res.status(400).send({ error: error.message });
   }
-};
+});

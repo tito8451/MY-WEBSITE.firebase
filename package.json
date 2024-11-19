@@ -2,10 +2,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@grpc/grpc-js": "^1.12.2",
     "@reduxjs/toolkit": "^1.9.5",
-    "@stripe/react-stripe-js": "^2.1.0",
-    "@stripe/stripe-js": "^5.0.0",
+    "@stripe/react-stripe-js": "^3.0.0",
+    "@stripe/stripe-js": "^5.1.0",
     "@svgr/plugin-svgo": "^8.1.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^5.14.1",
@@ -38,6 +37,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/plugin-syntax-flow": "^7.26.0",
     "@babel/plugin-transform-react-jsx": "^7.25.9",
     "@types/node": "^22.9.0",

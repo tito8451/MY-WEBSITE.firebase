@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const CheckoutContainer = styled.div`
   width: 55%;
@@ -22,7 +22,7 @@ export const HeaderBlock = styled.div`
   width: 23%;
 
   &:last-child {
-    width: 10%;
+    width: 8%;
   }
 `;
 

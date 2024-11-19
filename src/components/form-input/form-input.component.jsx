@@ -1,4 +1,4 @@
-import { Input, Group, FormInputLabel } from "../../components/form-input/form-input.styles.jsx";
+import { FormInputLabel, Input, Group } from './form-input.styles';
 
 const FormInput = ({ label, ...otherProps }) => {
   return (
@@ -12,4 +12,5 @@ const FormInput = ({ label, ...otherProps }) => {
     </Group>
   );
 };
+
 export default FormInput;

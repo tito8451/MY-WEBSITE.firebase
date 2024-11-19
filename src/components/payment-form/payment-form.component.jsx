@@ -1,13 +1,11 @@
-// src/components/payment-form/PaymentForm.js
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-
-import { selectCurrentUser } from "../../store/user/user.selector.jsx";
-import { selectCartTotal } from "../../store/cart/cart.selector.jsx";
-import { BUTTON_TYPE_CLASSES } from "../../components/button/button.component.jsx";
-import { processPayment } from "../../components/payment-form/payment-utils";
-import { PaymentFormContainer, FormContainer, PaymentButton } from "../../components/payment-form/payment-form.styles.jsx";
+import { useState } from 'react';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useSelector } from 'react-redux';
+import { selectCartTotal } from '../../store/cart/cart.selector';
+import { selectCurrentUser } from '../../store/user/user.selector';
+import { FormContainer } from './payment-form.styles';
+import { BUTTON_TYPE_CLASSES } from '../button/button.component';
+import { PaymentButton, PaymentFormContainer } from './payment-form.styles';
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -16,30 +14,64 @@ const PaymentForm = () => {
   const currentUser = useSelector(selectCurrentUser);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const paymentHandler = async (e) => {
     e.preventDefault();
-    if (!stripe || !elements) return;
+
+    if (!stripe || !elements) {
+      return; // Si Stripe ou Elements ne sont pas chargés
+    }
 
     setIsProcessingPayment(true);
-    const result = await processPayment(stripe, elements, amount, currentUser);
-    setIsProcessingPayment(false);
 
-    if (result.error) {
-      alert(result.error);
+    // Changez l'URL pour pointer vers votre fonction Netlify 
+    const response = await fetch('https://website-firebase.netlify.app//.netlify/functions/create-payment-intent', { // URL correcte
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ amount: amount * 100 }), // Montant en cents
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      const clientSecret = data.paymentIntent.client_secret;
+
+      const paymentResult = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+          billing_details: {
+            name: currentUser ? currentUser.displayName : 'Client Anonyme',
+          },
+        },
+      });
+
+      setIsProcessingPayment(false);
+
+      if (paymentResult.error) {
+        // Afficher l'erreur à l'utilisateur
+        alert(paymentResult.error.message);
+      } else {
+        if (paymentResult.paymentIntent.status === 'succeeded') {
+          alert('Payment Successful!');
+          // Ici, vous pouvez également gérer la réussite du paiement (redirection, mise à jour du statut de commande, etc.)
+        }
+      }
     } else {
-      alert("Payment successful");
+      // Gérer les erreurs retournées par la fonction
+      console.error(data.error);
+      alert(`Payment failed: ${data.error}`);
     }
   };
 
   return (
     <PaymentFormContainer>
-      <FormContainer onSubmit={handleSubmit}>
-        <h2>Credit Card Payment: </h2>
+      <FormContainer onSubmit={paymentHandler}>
+        <h2>Credit Card Payment:</h2>
         <CardElement />
         <PaymentButton
           buttonType={BUTTON_TYPE_CLASSES.inverted}
           isLoading={isProcessingPayment}
-          disabled={!stripe}
         >
           Pay Now
         </PaymentButton>

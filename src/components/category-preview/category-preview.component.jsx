@@ -1,10 +1,10 @@
-import ProductCard from "../product-card/product-card.component.jsx";
+import ProductCard from '../product-card/product-card.component';
 
 import {
   CategoryPreviewContainer,
   Title,
   Preview,
-} from "../category-preview/category-preview.styles.jsx";
+} from './category-preview.styles';
 
 const CategoryPreview = ({ title, products }) => {
   return (
@@ -14,7 +14,7 @@ const CategoryPreview = ({ title, products }) => {
       </h2>
       <Preview>
         {products
-          .filter((_, index) => index < 4)
+          .filter((_, idx) => idx < 4)
           .map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
@@ -22,4 +22,5 @@ const CategoryPreview = ({ title, products }) => {
     </CategoryPreviewContainer>
   );
 };
+
 export default CategoryPreview;

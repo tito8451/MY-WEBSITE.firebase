@@ -1,4 +1,4 @@
-import { CartItemContainer, ItemDetails } from "../cart-item/cart-item.styles.jsx";
+import { CartItemContainer, ItemDetails } from './cart-item.styles';
 
 const CartItem = ({ cartItem }) => {
   const { name, imageUrl, price, quantity } = cartItem;
@@ -8,10 +8,11 @@ const CartItem = ({ cartItem }) => {
       <ItemDetails>
         <span>{name}</span>
         <span>
-          {quantity} * {price} €
+          {quantity} x ${price}
         </span>
       </ItemDetails>
     </CartItemContainer>
   );
 };
+
 export default CartItem;
