@@ -36,9 +36,16 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
   );
 };
 
+// ACTION FOR CLEARING THE CART
+export const CLEAR_CART = 'CLEAR_CART';
+
+export const clearCart = () => createAction(CART_ACTION_TYPES.CLEAR_CART)
 const clearCartItem = (cartItems, cartItemToClear) =>
   cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
 
+
+export const addOrder = (order) =>
+  createAction(CART_ACTION_TYPES.ADD_ORDER, order);
 export const setIsCartOpen = (boolean) =>
   createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, boolean);
 

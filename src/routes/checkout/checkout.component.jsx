@@ -1,5 +1,6 @@
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom'
+import { clearCart, addOrder } from "../../store/cart/cart.action.js"; // Importez les actions/store/cart/cart.actions";
 import {
   selectCartItems,
   selectCartTotal,
@@ -16,9 +17,25 @@ import {
 } from "./checkout.styles";
 
 const Checkout = () => {
+  const navigate = useNavigate();
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
 
+  const dispatch = useDispatch();
+
+  const handlePaymentSuccess = (items, total) => {
+    console.log("items", items);
+    console.log("total", total);
+    const orderDetails = {
+      items,
+      total,
+      date: new Date().toISOString(), // Enregistre la date et l'heure de la commande
+    };
+
+    dispatch(addOrder(orderDetails)); // Ajouter l'ordre à l'historique
+    dispatch(clearCart()); // Vider le panier
+    navigate('/checkout-validation');
+  };
   return (
     <CheckoutContainer>
       <CheckoutHeader>
@@ -43,7 +60,7 @@ const Checkout = () => {
       ))}
       <Total>Total: ${cartTotal}</Total>
 
-      <PaymentForm />
+      <PaymentForm onPaymentSuccess={handlePaymentSuccess} />
     </CheckoutContainer>
   );
 };

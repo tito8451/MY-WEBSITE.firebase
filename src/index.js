@@ -12,16 +12,16 @@ import { stripePromise } from "./utils/stripe/stripe.utils";
 import "./index.scss";
 
 const rootElement = document.getElementById("root");
-const options = {
-  // passing the client secret obtained from the server
-  clientSecret: '{{CLIENT_SECRET}}',
-};
+// const options = {
+//   // passing the client secret obtained from the server
+//   clientSecret: '{{CLIENT_SECRET}}',
+// };
 render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          <Elements stripe={stripePromise} options={options}>
+          <Elements stripe={stripePromise} >
             <App />
           </Elements>
         </BrowserRouter>
