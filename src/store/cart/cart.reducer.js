@@ -10,7 +10,7 @@ export const CART_INITIAL_STATE = {
 
 export const cartReducer = (state = CART_INITIAL_STATE, action = {}) => {
   const { type, payload } = action;
-
+  console.log('Action reçue :', action);
   switch (type) {
     case CART_ACTION_TYPES.SET_CART_ITEMS:
       return {
@@ -22,22 +22,26 @@ export const cartReducer = (state = CART_INITIAL_STATE, action = {}) => {
         ...state,
         isCartOpen: payload,
       };
+    // case CART_ACTION_TYPES.ADD_ORDER:
+    //       console.log('État précédent des commandes :', state.orders);
+    //       console.log('Payload de la commande à ajouter :', action.payload);
+    
+    //       // S'assurer que state.orders est un tableau
+    //       if (!Array.isArray(state.orders)) {
+    //         console.error('Erreur : state.orders est indéfini ou n\'est pas un tableau');
+    //       }
+    //       const newState = {...state,
+    //       recentOrder: action.payload,
+    //       orders: [...state.orders, action.payload],}
+    //       console.log('Après ajout:', newState.orders);
+    //       return newState;
+
       case CART_ACTION_TYPES.CLEAR_CART:
       return {
         ...state,
         cartItems: [],
         total: 0,
       };
-      case CART_ACTION_TYPES.ADD_ORDER: // Ajoutez ce cas pour gérer les commandes
-      console.log('Current orders:', state.orders);
-      console.log('Incoming order payload:', payload);
-      return {
-        ...state,
-        recentOrder: payload, // Enregistre la dernière commande
-        orders: [...state.orders, payload], // Ajoute l'ordre à l'historique
-      };
-
-    
     default:
       return state;
   }
