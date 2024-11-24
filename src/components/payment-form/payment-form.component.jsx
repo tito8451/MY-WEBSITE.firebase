@@ -36,7 +36,9 @@ const PaymentForm = () => {
     setIsProcessingPayment(true);
   
     try {
-      const response = await fetch(`${API_URL}/payment`, {
+      console.log("Fetching from:", `${API_URL}`);
+
+      const response = await fetch(`${API_URL}` || '/.netlify/functions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
