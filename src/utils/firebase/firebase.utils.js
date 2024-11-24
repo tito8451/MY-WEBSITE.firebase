@@ -20,16 +20,23 @@ import {
   getDocs,
 } from 'firebase/firestore';
 
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAYaM9RpvoujjP42Bb2jrRl69WigcqER10",
+//   authDomain: "crwn-2c2a7.firebaseapp.com",
+//   projectId: "crwn-2c2a7",
+//   storageBucket: "crwn-2c2a7.firebasestorage.app",
+//   messagingSenderId: "224199242811",
+//   appId: "1:224199242811:web:64527a1aab7289d9b3981e"
+// };
 const firebaseConfig = {
-  apiKey: "AIzaSyAYaM9RpvoujjP42Bb2jrRl69WigcqER10",
-  authDomain: "crwn-2c2a7.firebaseapp.com",
-  projectId: "crwn-2c2a7",
-  storageBucket: "crwn-2c2a7.firebasestorage.app",
-  messagingSenderId: "224199242811",
-  appId: "1:224199242811:web:64527a1aab7289d9b3981e"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
-
-const firebaseApp = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -43,7 +50,7 @@ export const signInWithGooglePopup = () =>
 export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, googleProvider);
 
-export const db = getFirestore();
+export const db = getFirestore(app);
 
 export const addCollectionAndDocuments = async (
   collectionKey,
@@ -59,7 +66,7 @@ export const addCollectionAndDocuments = async (
   });
 
   await batch.commit();
-  console.log('done');
+  // console.log('done');
 };
 
 export const getCategoriesAndDocuments = async () => {

@@ -24,7 +24,7 @@ const PaymentForm = () => {
   const [paymentDetails, setPaymentDetails] = useState(null); // Détails du paiement
   // const navigate = useNavigate(); 
 
-  const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8888/.netlify/functions';
   const paymentHandler = async (e) => {
     
     e.preventDefault();
@@ -37,8 +37,8 @@ const PaymentForm = () => {
   
     try {
       console.log("Fetching from:", `${API_URL}`);
-
-      const response = await fetch(`${API_URL}` || '/.netlify/functions', {
+      //  || '/.netlify/functions/payment'
+      const response = await fetch(`${API_URL}/payment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

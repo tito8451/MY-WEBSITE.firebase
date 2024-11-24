@@ -2,6 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 console.log("donne l'info de ", stripe)
 
 exports.handler = async (event) => {
+  console.log("Received request:", event.httpMethod); 
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
