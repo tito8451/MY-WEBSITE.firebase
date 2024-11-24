@@ -23,6 +23,8 @@ const PaymentForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // État de la modal
   const [paymentDetails, setPaymentDetails] = useState(null); // Détails du paiement
   // const navigate = useNavigate(); 
+
+  const API_URL = process.env.REACT_APP_API_URL;
   const paymentHandler = async (e) => {
     
     e.preventDefault();
@@ -34,7 +36,7 @@ const PaymentForm = () => {
     setIsProcessingPayment(true);
   
     try {
-      const response = await fetch('/.netlify/functions/payment', {
+      const response = await fetch(`${API_URL}/payment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -44,6 +46,11 @@ const PaymentForm = () => {
   
       const data = await response.json();
   console.log("data", data)
+  if (!response.ok) {
+    const errorData = await response.json(); // Récupérer l’erreur JSON envoyée par le serveur
+    console.error("Response issue:", errorData);
+    alert(`Payment failed: ${errorData.error}`);
+}
       if (response.ok) {
         const clientSecret = data.paymentIntent.client_secret; // Assurez-vous que c'est le bon secret
         console.log("clientSecret", clientSecret)
