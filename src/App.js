@@ -7,8 +7,8 @@ import Home from './routes/home/Home.component';
 import Navigation from './routes/navigation/Navigation.component';
 import Authentication from './routes/authentication/authentication.component';
 import Shop from './routes/shop/Shop.component';
-import Checkout from './routes/checkout/Checkout.component';
-import CheckoutValidationPayment from './routes/Checkout/checkoutValidationPayment';
+import Checkout from './routes/checkout/checkout.component';
+import CheckoutValidationPayment from './routes/checkout/checkoutValidationPayment';
 import { checkUserSession } from './store/user/user.action';
 
 const App = () => {
